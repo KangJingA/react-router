@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+const Profile = ({ login }) => {
+  const history = useHistory();
 
-const Profile = () => {
-    return (
-        <div>
-            Profile
-        </div>
-    )
-}
+  useEffect(() => {
+    if (!login) {
+      // pushes path to url
+      history.push("/");
+    }
+  }, [login, history]);
+  return <div>Profile Page</div>;
+};
 
-export default Profile
+export default Profile;

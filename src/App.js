@@ -26,9 +26,15 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/profile">
+          {/* <Route exact path="/profile">
             {login ? <Redirect to="/" /> : <Profile />}
+          </Route> */}
+
+          {/* useHistory -> pass login as props */}
+          <Route exact path="/profile">
+            <Profile login={login}/>
           </Route>
+
           <Route exact path="/post/:id" component={Post} />
           <Route component={NotFound} />
         </Switch>
