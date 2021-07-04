@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -12,18 +13,26 @@ import NotFound from "./pages/NotFound";
 // browserrouter: forceRefresh -> refresh route, rerender stuff
 // getUserConfirmatin -> message + callback t0 run when user has changeg routes
 function App() {
+  const [login, setLogin] = useState(false);
   return (
     <BrowserRouter>
       <div className="App">
         <Header></Header>
       </div>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/about" component={About} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/post/:id" component={Post} />
-        <Route component={NotFound} />
-      </Switch>
+      <div className="main">
+        <button onClick={() => setLogin(!login)}>
+          {!login ? "Logout" : "Login"}
+        </button>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/profile">
+            {login ? <Redirect to="/" /> : <Profile />}
+          </Route>
+          <Route exact path="/post/:id" component={Post} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }
